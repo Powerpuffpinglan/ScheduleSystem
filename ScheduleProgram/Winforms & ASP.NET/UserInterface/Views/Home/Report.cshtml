@@ -1,0 +1,46 @@
+﻿@model UserInterface.Models.PersonalInfo
+
+
+
+
+<h2>Report</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @*//Skriv en text*@
+            @Html.Label("Personnummer")
+        <th>
+            @Html.Label("Förnamn")
+        </th>
+        <th>
+            @Html.Label("Efternamn")</th>
+        
+        <th>
+            @Html.Label("Schemakod")
+        </th>
+    </tr>
+
+
+    <tr>
+        <td>
+           
+            @Html.DisplayFor(m=>m.PersonellNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(m=>m.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(m=>m.LastName)
+        </td>
+        <td>
+
+            <a href="~/Home/Schedule">@Html.DisplayFor(m => m.ScheduleCode)</a>
+        </td>
+       
+    </tr>
+
+
+
+</table>

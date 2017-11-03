@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PowiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="PersonalInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonellNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ScheduleCode" Type="int" />
+  </EntityType>
+  <EntityType Name="ScheduleFile">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Week" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Day" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Time" Type="time" Precision="7" Nullable="false" />
+    <Property Name="ScheduleCode" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ScheduleTable">
+    <Key>
+      <PropertyRef Name="ScheduleCode" />
+    </Key>
+    <Property Name="ScheduleCode" Type="int" Nullable="false" />
+    <Property Name="ValidFrom" Type="datetime" Nullable="false" />
+    <Property Name="ValidTo" Type="datetime" Nullable="false" />
+    <Property Name="Uploader" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ScheduleFileName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_PersonalInfo_ScheduleTable">
+    <End Role="ScheduleTable" Type="Self.ScheduleTable" Multiplicity="0..1" />
+    <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ScheduleTable">
+        <PropertyRef Name="ScheduleCode" />
+      </Principal>
+      <Dependent Role="PersonalInfo">
+        <PropertyRef Name="ScheduleCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ScheduleFile_ScheduleTable">
+    <End Role="ScheduleTable" Type="Self.ScheduleTable" Multiplicity="1" />
+    <End Role="ScheduleFile" Type="Self.ScheduleFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ScheduleTable">
+        <PropertyRef Name="ScheduleCode" />
+      </Principal>
+      <Dependent Role="ScheduleFile">
+        <PropertyRef Name="ScheduleCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ScheduleTable_ScheduleTable">
+    <End Role="ScheduleTable" Type="Self.ScheduleTable" Multiplicity="1" />
+    <End Role="ScheduleTable1" Type="Self.ScheduleTable" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="ScheduleTable">
+        <PropertyRef Name="ScheduleCode" />
+      </Principal>
+      <Dependent Role="ScheduleTable1">
+        <PropertyRef Name="ScheduleCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ScheduleTable_ScheduleTable1">
+    <End Role="ScheduleTable" Type="Self.ScheduleTable" Multiplicity="1" />
+    <End Role="ScheduleTable1" Type="Self.ScheduleTable" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="ScheduleTable">
+        <PropertyRef Name="ScheduleCode" />
+      </Principal>
+      <Dependent Role="ScheduleTable1">
+        <PropertyRef Name="ScheduleCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PowiModelStoreContainer">
+    <EntitySet Name="PersonalInfo" EntityType="Self.PersonalInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ScheduleFile" EntityType="Self.ScheduleFile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ScheduleTable" EntityType="Self.ScheduleTable" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_PersonalInfo_ScheduleTable" Association="Self.FK_PersonalInfo_ScheduleTable">
+      <End Role="ScheduleTable" EntitySet="ScheduleTable" />
+      <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ScheduleFile_ScheduleTable" Association="Self.FK_ScheduleFile_ScheduleTable">
+      <End Role="ScheduleTable" EntitySet="ScheduleTable" />
+      <End Role="ScheduleFile" EntitySet="ScheduleFile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ScheduleTable_ScheduleTable" Association="Self.FK_ScheduleTable_ScheduleTable">
+      <End Role="ScheduleTable" EntitySet="ScheduleTable" />
+      <End Role="ScheduleTable1" EntitySet="ScheduleTable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ScheduleTable_ScheduleTable1" Association="Self.FK_ScheduleTable_ScheduleTable1">
+      <End Role="ScheduleTable" EntitySet="ScheduleTable" />
+      <End Role="ScheduleTable1" EntitySet="ScheduleTable" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,19 @@
+﻿@model UserInterface.Models.PersonalInfo
+<!DOCETYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>UserInterface</title>
+</head>
+<body><br />
+
+   @using (Html.BeginForm("Report", "Home", FormMethod.Post)) { 
+
+        <label>Personnummer:</label>@Html.TextBox("search")<br />
+        <input type="submit" value="Sök" />
+
+   }
+    
+    </body>
+</html>
+

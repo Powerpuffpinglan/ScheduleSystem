@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PowiModelStoreContainer" CdmEntityContainer="PowiEntities">
+    <EntitySetMapping Name="PersonalInfo">
+      <EntityTypeMapping TypeName="PowiModel.PersonalInfo">
+        <MappingFragment StoreEntitySet="PersonalInfo">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PersonellNumber" ColumnName="PersonellNumber" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="ScheduleCode" ColumnName="ScheduleCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ScheduleFile">
+      <EntityTypeMapping TypeName="PowiModel.ScheduleFile">
+        <MappingFragment StoreEntitySet="ScheduleFile">
+          <ScalarProperty Name="Week" ColumnName="Week" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="ScheduleCode" ColumnName="ScheduleCode" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ScheduleTable">
+      <EntityTypeMapping TypeName="PowiModel.ScheduleTable">
+        <MappingFragment StoreEntitySet="ScheduleTable">
+          <ScalarProperty Name="ScheduleCode" ColumnName="ScheduleCode" />
+          <ScalarProperty Name="ValidFrom" ColumnName="ValidFrom" />
+          <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
+          <ScalarProperty Name="Uploader" ColumnName="Uploader" />
+          <ScalarProperty Name="ScheduleFileName" ColumnName="ScheduleFileName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

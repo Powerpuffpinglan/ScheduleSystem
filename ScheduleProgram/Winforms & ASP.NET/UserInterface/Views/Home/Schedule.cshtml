@@ -1,0 +1,43 @@
+﻿@model List<UserInterface.Models.ScheduleDataWithSoc>
+
+<h2>Schedule</h2><br />
+
+<table class="table">
+    <tr>
+        <th>
+            @*//Skriv en text*@
+            @Html.Label("Vecka")
+        <th>
+            @Html.Label("Dag")
+        </th>
+        <th>
+            @Html.Label("Tid")
+        </th>
+
+        <th>
+            @Html.Label("Schemakod")
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+
+                @Html.DisplayFor(i => item.week)
+            </td>
+            <td>
+                @Html.DisplayFor(i => item.day)
+            </td>
+            <td>
+                @Html.DisplayFor(i => item.time)
+            </td>
+            <td>
+                @Html.DisplayFor(i => item.ScheduleCode)
+            </td>
+
+        </tr>
+
+    }
+
+</table>

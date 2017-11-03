@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PowiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="PersonalInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PersonellNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ScheduleCode" Type="Int32" />
+    <NavigationProperty Name="ScheduleTable" Relationship="Self.FK_PersonalInfo_ScheduleTable" FromRole="PersonalInfo" ToRole="ScheduleTable" />
+  </EntityType>
+  <EntityType Name="ScheduleFile">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Week" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Day" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Time" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="ScheduleCode" Type="Int32" Nullable="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="ScheduleTable" Relationship="Self.FK_ScheduleFile_ScheduleTable" FromRole="ScheduleFile" ToRole="ScheduleTable" />
+  </EntityType>
+  <EntityType Name="ScheduleTable">
+    <Key>
+      <PropertyRef Name="ScheduleCode" />
+    </Key>
+    <Property Name="ScheduleCode" Type="Int32" Nullable="false" />
+    <Property Name="ValidFrom" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ValidTo" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Uploader" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ScheduleFileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="PersonalInfo" Relationship="Self.FK_PersonalInfo_ScheduleTable" FromRole="ScheduleTable" ToRole="PersonalInfo" />
+    <NavigationProperty Name="ScheduleFile" Relationship="Self.FK_ScheduleFile_ScheduleTable" FromRole="ScheduleTable" ToRole="ScheduleFile" />
+    <NavigationProperty Name="ScheduleTable1" Relationship="Self.FK_ScheduleTable_ScheduleTable" FromRole="ScheduleTable" ToRole="ScheduleTable1" />
+    <NavigationProperty Name="ScheduleTable2" Relationship="Self.FK_ScheduleTable_ScheduleTable" FromRole="ScheduleTable1" ToRole="ScheduleTable" />
+    <NavigationProperty Name="ScheduleTable11" Relationship="Self.FK_ScheduleTable_ScheduleTable1" FromRole="ScheduleTable" ToRole="ScheduleTable1" />
+    <NavigationProperty Name="ScheduleTable3" Relationship="Self.FK_ScheduleTable_ScheduleTable1" FromRole="ScheduleTable1" ToRole="ScheduleTable" />
+  </EntityType>
+  <Association Name="FK_PersonalInfo_ScheduleTable">
+    <End Role="ScheduleTable" Type="Self.ScheduleTable" Multiplicity="0..1" />
+    <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ScheduleTable">
+        <PropertyRef Name="ScheduleCode" />
+      </Principal>
+      <Dependent Role="PersonalInfo">
+        <PropertyRef Name="ScheduleCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ScheduleFile_ScheduleTable">
+    <End Role="ScheduleTable" Type="Self.ScheduleTable" Multiplicity="1" />
+    <End Role="ScheduleFile" Type="Self.ScheduleFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ScheduleTable">
+        <PropertyRef Name="ScheduleCode" />
+      </Principal>
+      <Dependent Role="ScheduleFile">
+        <PropertyRef Name="ScheduleCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ScheduleTable_ScheduleTable">
+    <End Role="ScheduleTable" Type="Self.ScheduleTable" Multiplicity="1" />
+    <End Role="ScheduleTable1" Type="Self.ScheduleTable" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="ScheduleTable">
+        <PropertyRef Name="ScheduleCode" />
+      </Principal>
+      <Dependent Role="ScheduleTable1">
+        <PropertyRef Name="ScheduleCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ScheduleTable_ScheduleTable1">
+    <End Role="ScheduleTable" Type="Self.ScheduleTable" Multiplicity="1" />
+    <End Role="ScheduleTable1" Type="Self.ScheduleTable" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="ScheduleTable">
+        <PropertyRef Name="ScheduleCode" />
+      </Principal>
+      <Dependent Role="ScheduleTable1">
+        <PropertyRef Name="ScheduleCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PowiEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="PersonalInfo" EntityType="Self.PersonalInfo" />
+    <EntitySet Name="ScheduleFile" EntityType="Self.ScheduleFile" />
+    <EntitySet Name="ScheduleTable" EntityType="Self.ScheduleTable" />
+    <AssociationSet Name="FK_PersonalInfo_ScheduleTable" Association="Self.FK_PersonalInfo_ScheduleTable">
+      <End Role="ScheduleTable" EntitySet="ScheduleTable" />
+      <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ScheduleFile_ScheduleTable" Association="Self.FK_ScheduleFile_ScheduleTable">
+      <End Role="ScheduleTable" EntitySet="ScheduleTable" />
+      <End Role="ScheduleFile" EntitySet="ScheduleFile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ScheduleTable_ScheduleTable" Association="Self.FK_ScheduleTable_ScheduleTable">
+      <End Role="ScheduleTable" EntitySet="ScheduleTable" />
+      <End Role="ScheduleTable1" EntitySet="ScheduleTable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ScheduleTable_ScheduleTable1" Association="Self.FK_ScheduleTable_ScheduleTable1">
+      <End Role="ScheduleTable" EntitySet="ScheduleTable" />
+      <End Role="ScheduleTable1" EntitySet="ScheduleTable" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
